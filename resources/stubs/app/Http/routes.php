@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,10 +10,5 @@
 |
 */
 
-Route::get('/', function () {
-	return view('spark::welcome');
-});
-
-Route::get('home', ['middleware' => 'auth', function () {
-	return view('home');
-}]);
+/** @var $router \Illuminate\Routing\Router */
+/** @var $this \App\Providers\RouteServiceProvider */

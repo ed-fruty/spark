@@ -1,5 +1,13 @@
 <?php
 
+Route::get('/', function () {
+    return view('spark::welcome');
+});
+
+Route::get('home', ['middleware' => 'auth', function () {
+    return view('home');
+}]);
+
 // Terms Routes...
 $router->get('terms', 'TermsController@show');
 

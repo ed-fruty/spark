@@ -41,9 +41,12 @@ class SparkServiceProvider extends ServiceProvider
         if (! $this->app->routesAreCached()) {
             $router = app('router');
 
-            $router->group(['namespace' => 'Laravel\Spark\Http\Controllers'], function ($router) {
-                require __DIR__.'/../Http/routes.php';
-            });
+            if (is_file($routesFile = config('spark.routes'))) {
+                $router->group(['namespace' => config('spark.controllersNamespace')], function ($router) use ($routesFile)
+                {
+                    require $routesFile;
+                });
+            }
         }
     }
 
@@ -59,6 +62,8 @@ class SparkServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 SPARK_PATH.'/resources/views' => base_path('resources/views/vendor/spark'),
+                SPARK_PATH.'/config' => base_path('config'),
+
             ], 'spark-full');
 
             $this->publishes([
@@ -75,6 +80,7 @@ class SparkServiceProvider extends ServiceProvider
                 SPARK_PATH.'/resources/views/auth/registration/simple/basics.blade.php' => base_path('resources/views/vendor/spark/auth/registration/simple/basics.blade.php'),
                 SPARK_PATH.'/resources/views/auth/registration/subscription/basics.blade.php' => base_path('resources/views/vendor/spark/auth/registration/subscription/basics.blade.php'),
                 SPARK_PATH.'/resources/views/settings/team/tabs/membership/modals/edit-team-member.blade.php' => base_path('resources/views/vendor/spark/settings/team/tabs/membership/modals/edit-team-member.blade.php'),
+                SPARK_PATH.'/config/spark.php' => base_path('config/spark.php'),
             ], 'spark-basics');
         }
     }

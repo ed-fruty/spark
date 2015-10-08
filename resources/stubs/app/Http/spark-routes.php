@@ -1,10 +1,12 @@
 <?php
 
-Route::get('/', function () {
+/** @var $router \Illuminate\Routing\Router */
+
+$router->get('/', function () {
     return view('spark::welcome');
 });
 
-Route::get('home', ['middleware' => 'auth', function () {
+$router->get('home', ['middleware' => 'auth', function () {
     return view('home');
 }]);
 

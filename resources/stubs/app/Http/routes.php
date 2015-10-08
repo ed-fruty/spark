@@ -11,4 +11,3 @@
 */
 
 /** @var $router \Illuminate\Routing\Router */
-/** @var $this \App\Providers\RouteServiceProvider */
